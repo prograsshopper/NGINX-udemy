@@ -36,3 +36,18 @@
 - [엔진엑스 기본 모듈 변수](http://nginx.org/en/docs/varindex.html)
 - 사용자가 직접 정의할때는 set ${variable_name} {content}식으로 정의
 
+### Rewrite & Redirectives
+#### Two directives for rewriting requests
+- return status URI
+    - return status_code strings 
+    - ex} return 307 /some/path;
+- rewrite pattern URI
+    - return의 경우에는 uri 자체를 바꿔주지는 않음
+    - rewrite를 사용하면 uri를 다른 값으로 설정할 수 있다.
+    - 두번 rewrite하는 것도 가능한데, 만약 여러번 rewrite하는걸 방지하고 싶으면 last를 맨 뒤에 붙여주면 된다.
+
+
+### Try files & Named Locations
+#### try_files
+- server contect 냐에서 rewrite, return 등과 함께 사용되거나 혹은 location context내에서 사용되기도 한다.
+- 어떤 location에 들어가기에 앞서 동작을 실행시킬 수 있다. 보통 존재하지 않는 uri 처리할 때 많이 사용하는 것으로 보인다.
