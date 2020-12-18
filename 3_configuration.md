@@ -29,3 +29,10 @@
 ### Location Blocks
 - URI 등의 요청을 처리할때 사용한다.
 - location /<url> 식으로 사용하는데 여기서 정규식등을 이용해서 처리할 수도 있다.
+
+### Variables
+- key - value 식으로 설정이 가능
+- Configuration variable과 module variable 이렇게 두가지가 있는데 전자는 사용자가 직접 정의한느 것이고 후자의 경우엔 nginx에서 기본적으로 제공한다.
+- [엔진엑스 기본 모듈 변수](http://nginx.org/en/docs/varindex.html)
+- 사용자가 직접 정의할때는 set ${variable_name} {content}식으로 정의
+
