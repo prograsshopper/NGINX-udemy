@@ -51,3 +51,20 @@
 #### try_files
 - server contect 냐에서 rewrite, return 등과 함께 사용되거나 혹은 location context내에서 사용되기도 한다.
 - 어떤 location에 들어가기에 앞서 동작을 실행시킬 수 있다. 보통 존재하지 않는 uri 처리할 때 많이 사용하는 것으로 보인다.
+
+### Logging
+- Access Log
+    - 서버에 들어온 모든 요청
+    - 404의 경우에도 유효한 요청이므로 여기에 저장된다.
+- Error Log
+    - fail나거나 이상한 동작을 하는 경우
+    - 대신 404의 not found되는 경위가 여기에 저장된다. 에러로그는 단순히 제대로된 응답이 돌아오느냐 보다는 완전한 장애발생시에 기록되는 곳이라고 볼 수 있다.
+- 로그파일 위치(default): /var/log/nginx/
+- 특정 url은 다른 로그를 저장하도록 지정해줄 수도 있다.
+```
+location /secure {
+    access_log /var/log/nginx/secure.access.log;
+```
+
+
+
