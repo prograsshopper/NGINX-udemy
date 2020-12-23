@@ -97,3 +97,19 @@ nginx의 기본 프로세스 수는 하나지만, worker_processes라는 지시�
 - ulimit -n: 서버상에서 한번에 열 수 있는 파일 수. 디폴트는 1024인듯
 - nproc: 프로세스 수
 - lscpu: 현재 서버의 cpu 상태 확인
+
+### Buffers & Timeout
+- 둘은 반대되는 개념이다
+1. Buffer
+    - buffering은 프로세스나 nginx의 워커가 다음 도착지에 쓰기 전에 메모리나 ram에서 데이터를 읽어오는 것을 말한다
+    - ex) nginx request가 tcp 포트 80에서 요청을 받은 후, 메모리에 요청된 데이터를 쓰는 것, 혹은 버퍼가 데이터량에 비해 너무 적으면 디스크에 쓰는 것을 말한다.
+2. Timeout
+    - 주어진 이벤트에 걸리는 시간을 제한하는 것
+
+3. 지시어
+    - client_body_buffer_size: 클라이언트로 부터 받은 데이터에 할당되는 메모리 세팅. 기본 단위는 바이트이고 킬로바이트의 경우엔 {숫자}K, 메가바이트의 경우엔 {숫자}M 식으로 작성한다.
+    - client_max_body_size: 여기서 작성해준 것 이상의 요청은 더이상 받지않는다는 의미다. 여기보다 더 큰 요청을 받을땐 에러 413을 리턴한다
+    - client_body_timeout: incoming request를 핸들링하는 지시어
+    = client_header_timeout: incoming request를 핸들링하는 지시어
+    - keepalive_timeout: nginx가 커넥션을 유지하는 시간설정.
+    - send_file: disk로부터 파일을 보낼 때 버퍼를 사용하지 않고 바로 응답으로 보내는 것
