@@ -66,5 +66,34 @@ location /secure {
     access_log /var/log/nginx/secure.access.log;
 ```
 
+### Inheritance & Directive Types
+3 main directives
+- Standard Directive: 컨텍스트 내에서 한번만 선언된다.
+- Array Directive: 여러번 작성이 가능하다.
+- Action Directive: 특정 동작을 발생시키는 지시어. return이 대표 예시
 
+- Standard & Array 에서 상속이 일어난다. 
 
+### Worker Processes
+명령어 sudo systemctl status nginx를 치면 다음의 두 가지 프로세스가 뜬다.
+
+```
+/system.slice/nginx.service
+           ├─ 4666 nginx: worker process
+           └─10041 nginx: master process /usr/sbin/nginx -g daemon on; master_process
+```
+
+- master: nginx 자신
+- worker: 클라이언트의 요청에 응답함
+
+nginx의 기본 프로세스 수는 하나지만, worker_processes라는 지시어를 통해서 더 늘릴 수도 있다. 이 지시어를 auto로 설정하면 서버의 cpu 수 등을 고려하여 자동으로 정해줌.
+
+- nginx는 비동기적으로 동작하므로, 프로세스를 늘리는 것이 더 좋은 퍼포먼스를 약속하는 것은 아니다.
+- 지시어 worker_connections를 통해 커넥션 수 조절 가능
+- max connection 수: worker_process * worker_connections
+- 지시어 pid를 통해 config 파일로 pid 설정 가능...이라는데 실습해보니 에러가 뜨고, 다른 사람들도 이런 경우가 잦았다는데 강의자의 피드백은 없다..
+
+*우분투 커맨드
+- ulimit -n: 서버상에서 한번에 열 수 있는 파일 수. 디폴트는 1024인듯
+- nproc: 프로세스 수
+- lscpu: 현재 서버의 cpu 상태 확인
